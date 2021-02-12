@@ -17,6 +17,7 @@ Validation <br/>
 Spring Session<br/>
 Spring Boot DevTools <br/>
 </b>
+</hr>
 após gerado o arquivo.zip descompactar o mesmo e importar o projeto <br/>
 utilizar a IDE Spring Tool Suite 4 <br/>
 Após isso clicar sobre o projeto ir na opção maven e clicar UPDATE PROJECT, este comando faz o download das dependencias para <br/>

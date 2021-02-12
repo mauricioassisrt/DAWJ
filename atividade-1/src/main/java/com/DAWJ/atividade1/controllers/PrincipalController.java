@@ -16,6 +16,7 @@ public class PrincipalController {
     public ModelAndView recebeParam(Model model) {
         ModelAndView mv = new ModelAndView("index");
         contador++;
+        System.out.println(contador);
         model.addAttribute("contador" , contador);
         mv.addObject(model);
         return mv;

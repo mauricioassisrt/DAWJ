@@ -25,8 +25,6 @@ public class Pessoa implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String nome;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date dtNascimento;
 	@NotBlank
 	@Email
 	private String email;
@@ -44,12 +42,7 @@ public class Pessoa implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Date getDtNascimento() {
-		return dtNascimento;
-	}
-	public void setDtNascimento(Date dtNascimento) {
-		this.dtNascimento = dtNascimento;
-	}
+	
 	public String getEmail() {
 		return email;
 	}

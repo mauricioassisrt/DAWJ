@@ -23,6 +23,33 @@ public class ItensPedido implements Serializable {
 	private Pedido objetoPedido;
 	@ManyToOne
 	private  Produto objetoProduto;
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
+	}
+	public Pedido getObjetoPedido() {
+		return objetoPedido;
+	}
+	public void setObjetoPedido(Pedido objetoPedido) {
+		this.objetoPedido = objetoPedido;
+	}
+	public Produto getObjetoProduto() {
+		return objetoProduto;
+	}
+	public void setObjetoProduto(Produto objetoProduto) {
+		this.objetoProduto = objetoProduto;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	
 	
 }

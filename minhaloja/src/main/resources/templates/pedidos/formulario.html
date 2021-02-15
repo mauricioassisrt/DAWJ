@@ -2,50 +2,63 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
 <meta charset="UTF-8" />
-<title>Produto</title>
+<title>Pedidos</title>
 </head>
 <body>
-  <h1 layout:fragment="titulo">Cadastro de Produtos</h1>
-
-  <section layout:fragment="conteudo">
-    <form th:action="@{/produtos/formulario}" th:object="${produto}" method="post" class="ml-3 mr-3">
-
+   <section layout:fragment="conteudo">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h4 layout:fragment="titulo">Cadastro de Pedido</h4>
+      </div>
+    <form th:action="@{/pedidos/salvar}" th:object="${itens}" method="post" class="ml-3 mr-3">
+      <div class="card-body">
       <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="nome">Nome *</label>
-          <input th:errorclass="is-invalid" th:field="*{nome}" type="text" class="form-control" placeholder="Nome completo">
-          <div th:errors="*{nome}" class="invalid-feedback"></div>
-        </div>
-        <div class="form-group col-md-3">
-          <label for="valorCompra">Vlr de Compra *</label>
-          <input th:errorclass="is-invalid" th:field="*{valorCompra}" type="number" step="0.010" class="form-control" placeholder="Valor de Compra">
-          <div th:errors="*{valorCompra}" class="invalid-feedback"></div>
-        </div>
-        <div class="form-group col-md-3">
-          <label for="quantidade">Quantidade *</label>
-          <input th:errorclass="is-invalid" th:field="*{quantidade}" type="number" step="0.010" class="form-control" placeholder="Quantidade">
-          <div th:errors="*{quantidade}" class="invalid-feedback"></div>
-        </div>
-        <div class="form-group col-md-6">
-          <label for="codBarras">Código de Barras</label>
-          <input th:errorclass="is-invalid" th:field="*{codBarras}" type="text" class="form-control" placeholder="Código de Barras">
-          <div th:errors="*{codBarras}" class="invalid-feedback"></div>
-        </div>
-        <div class="form-group col-md-6">
-          <label for="codBarras">Unidade</label>
-          <select th:errorclass="is-invalid" th:field="*{unidade}" class="form-control">
-            <option th:value="0" selected></option>
-            <option th:each="uni: ${unidades}" th:value="${uni.id}" th:text="${uni.descricao}"></option>
-          </select>
-          <div th:errors="*{unidade}" class="invalid-feedback"></div>
+        <div class="form-group col-md-12">
+          <div class="form-group">
+            <label>Cliente </label>
+            <select class="form-control select2" style="width: 100%;">
+              <option selected="selected"></option>         
+              <option  th:each="pessoa : ${listaPessoas}" th:text="${pessoa.nome}">	</option>
+                   </select>
+          </div>
         </div>
       </div>
-
+      <div class="card-header">
+        <h4 layout:fragment="titulo">Produtos</h4>
+      </div>
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nome</th>
+            <th>Valor Venda</th>
+            <th class="text-center">Quantidade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="produto : ${listaProdutos}">
+            <td th:text="${produto.id}"></td>
+            <td th:text="${produto.nome}"></td>
+            <td th:text="${produto.valorVenda}"></td>
+           
+            <td class="text-center">
+              <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fas fa-money-bill-wave "></i>
+                </span>
+              </div>
+              <input type="number" class="form-control" th:field="*{quantidade}"   />
+               <input type="hidden" id="valorVenda" th:field="*{objetoProduto.valorVenda}" />
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
       <input type="hidden" id="id" th:field="*{id}" />
-
       <div class="clearfix mb-1">
         <div class="float-right">
-          <a th:href="@{/produto}" class="btn btn-default mr-1" role="buttom">
+          <a th:href="@{/pedidos}" class="btn btn-default mr-1" role="buttom">
             <i class="fas fa-arrow-left"></i>
             Voltar
           </a>
@@ -58,7 +71,8 @@
       </div>
 
     </form>
-
+    </div>
+  
   </section>
 
 </body>

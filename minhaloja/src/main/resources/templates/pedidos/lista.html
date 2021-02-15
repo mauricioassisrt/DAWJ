@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
 <meta charset="UTF-8" />
-<title>Produto</title>
+<title>Pedidos</title>
 </head>
 <body>
-  <h1 layout:fragment="titulo">Cadastro de Produtos </h1>
+  <h1 layout:fragment="titulo">Cadastro de Pedidos </h1>
   <div layout:fragment="botao">
-    <a class="btn btn-primary" th:href="@{/produtos/formulario}" role="button">
+    <a class="btn btn-primary" th:href="@{/pedidos/cadastrar}" role="button">
       <i class="fas fa-plus"></i>
       Novo
     </a>
@@ -18,27 +18,22 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>Nome</th>
-          <th>Valor de compra</th>
-          <th>Quantidade</th>
-          <th>Unidade</th>
+          <th>Data Pedido</th>
+         
           <th class="text-center">Ações</th>
         </tr>
       </thead>
       <tbody>
-        <tr th:each="produto : ${page.content}">
-          <td th:text="${produto.id}"></td>
-          <td th:text="${produto.nome}"></td>
-          <td th:text="${produto.valorCompra}"></td>
-          <td th:text="${produto.quantidade}"></td>
-          <td>
-            <span th:if="${produto.unidade}" th:text="${produto.unidade.descricao}"></span>
-          </td>
+        <tr th:each="pedido : ${listaPedidos}">
+          <td th:text="${pedido.id}"></td>
+          <td th:text="${pedido.dataPedido}"></td>
+         
+         
           <td class="text-center">
-            <a class="btn btn-sm" th:href="@{/produto/formulario(id=${produto.id})}">
+            <a class="btn btn-sm" th:href="@{/pedidos/formulario(id=${pedido.id})}">
               <i class="fas fa-edit"></i>
             </a>
-            <a class="btn btn-sm" data-toggle="modal" data-target="#modal-delete" th:attr="data-id=${produto.id}, data-url=@{/produto/remover/}">
+            <a class="btn btn-sm" data-toggle="modal" data-target="#modal-delete" th:attr="data-id=${pedido.id}, data-url=@{/pedidos/remover/}">
               <i class="fas fa-trash-alt"></i>
             </a>
           </td>

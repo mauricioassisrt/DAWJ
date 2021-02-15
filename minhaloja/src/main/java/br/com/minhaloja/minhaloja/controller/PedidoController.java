@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.minhaloja.minhaloja.model.ItensPedido;
 import br.com.minhaloja.minhaloja.model.Pedido;
 import br.com.minhaloja.minhaloja.model.Pessoa;
+import br.com.minhaloja.minhaloja.model.Produto;
 import br.com.minhaloja.minhaloja.repositorio.PedidoRepositorio;
 import br.com.minhaloja.minhaloja.repositorio.PessoaRepositorio;
 import br.com.minhaloja.minhaloja.repositorio.ProdutoRepositorio;
@@ -21,26 +23,33 @@ import br.com.minhaloja.minhaloja.repositorio.ProdutoRepositorio;
 
 @Controller
 public class PedidoController {
+	
 	@Autowired
 	private PedidoRepositorio repositorioPedido;
+	@Autowired
 	private PessoaRepositorio repositorioPessoa;
+	@Autowired
 	private ProdutoRepositorio repositorioProdutos;
 	
 	@GetMapping("pedidos/cadastrar")
-	public ModelAndView cadastrar(Pedido pedido) {
+	public ModelAndView cadastrar(Pedido pedidos, ItensPedido itensPedido, Produto produtos) {
 		ModelAndView mv = new ModelAndView("pedidos/formulario");
-		mv.addObject("listaPessoas", repositorioPessoa.findAll());
 		mv.addObject("listaProdutos", repositorioProdutos.findAll());
-		mv.addObject("pedidos", pedido);
+		mv.addObject("listaPessoas", repositorioPessoa.findAll());
+		
+		mv.addObject("itens", itensPedido );
+		
 		return mv;
 	}
 	@PostMapping("pedidos/salvar")
-	public ModelAndView salvar(@Valid Pedido pedidos, BindingResult result) {
+	public ModelAndView salvar(@Valid Pedido pedidos, ItensPedido itens, Produto produtos, BindingResult result) {
 		if(result.hasErrors()) {
-			return cadastrar(pedidos);
+			return cadastrar(pedidos, itens, produtos);
 		}
-		repositorioPedido.saveAndFlush(pedidos);
-		return cadastrar(new Pedido());
+		
+		System.out.println(itens.getObjetoPedido().getObjetoPessoa().getId());
+		//repositorioPedido.saveAndFlush(pedidos);
+		return cadastrar(new Pedido(), new ItensPedido(), new Produto());
 	}
 	@GetMapping("pedidos")
 	public ModelAndView listar() {
@@ -53,7 +62,7 @@ public class PedidoController {
 		
 		Optional<Pedido> objetoPedido = repositorioPedido.findById(id);
 		
-		return cadastrar(objetoPedido.get());
+		return cadastrar(objetoPedido.get(), null, null);
 		
 	}
 	@GetMapping("pedidos/excluir/{id}")
@@ -65,4 +74,6 @@ public class PedidoController {
 		return listar();
 		
 	}
+	
+	
 }
